@@ -19,11 +19,13 @@ namespace Squash
 
         public void GenerateFiles()
         {
+            SquashLogger.Info("Generating files");
             GenerateFeatureFilesFor(_root);
         }
 
         public void ClearOutputDirectory()
         {
+            SquashLogger.Info("Clearing output directory");
             DirectoryInfo di = new DirectoryInfo(_outputDirectory);
 
             foreach (FileInfo file in di.GetFiles())
@@ -42,7 +44,7 @@ namespace Squash
             {
                 var content = FeatureToHtml(feature);
                 var page = _pageTemplate.GetPage(content);
-                var location = squashFeatureDirectory.DirectoryExtension.Replace('\\', '-');
+                var location = squashFeatureDirectory.DirectoryExtension.Replace(SquashConfiguration.Separator, '-');
                 File.WriteAllText(_outputDirectory + location + feature.Name + ".html", page);
             }
 

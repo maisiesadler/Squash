@@ -13,6 +13,7 @@ namespace Squash
             _outputDirectory = outputDirectory;
             SetHeader(menuHeader, root);
             _content = GetMenuFor(root);
+            SquashLogger.Info("Generating page menu");
         }
 
         private void SetHeader(string header, SquashFeatureDirectory rootFeatureDirectory)
@@ -25,7 +26,7 @@ namespace Squash
         {
             var menu = "<ul>";
 
-            var location = directory.DirectoryExtension.Split('\\')
+            var location = directory.DirectoryExtension.Split(SquashConfiguration.Separator)
                                         .LastOrDefault(e => !string.IsNullOrWhiteSpace(e));
 
             menu += "<h4>" + location + "</h4>";
@@ -37,7 +38,7 @@ namespace Squash
 
             foreach (var feature in directory.FeatureFiles)
             {
-                menu += $"<li loc='{_outputDirectory + directory.DirectoryExtension.Replace('\\','-') + feature.Name + ".html"}'>{feature.Name}</li>";
+                menu += $"<li loc='{_outputDirectory + directory.DirectoryExtension.Replace(SquashConfiguration.Separator,'-') + feature.Name + ".html"}'>{feature.Name}</li>";
             }
 
             menu += "</ul>";

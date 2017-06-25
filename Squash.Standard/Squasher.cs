@@ -22,6 +22,7 @@ namespace Squash
             var htmlGenerator = new HtmlGenerator(template, configuration.OutputDirectory, squashFeatureDirectory);
             htmlGenerator.ClearOutputDirectory();
             htmlGenerator.GenerateFiles();
+            SquashLogger.Info("Done!");
         }
     }
 

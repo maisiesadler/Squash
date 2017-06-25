@@ -28,7 +28,6 @@ namespace Squash
                 var feature = new SquashFeature(file);
                 FeatureFiles.Add(feature);
             }
-            //  var html = HtmlGenerator.GetFeatureHtml(feature);
         }
 
         private void GetDirectories()

@@ -36,6 +36,7 @@ namespace Squash
                 if (row.StartsWith("@"))
                 {
                     var newscenario = CreateScenarioWithTags();
+                    SquashLogger.Debug($"Feature {Name} has scenario {newscenario.Name} with tags {string.Join(",",newscenario.Tags)}");
                     Scenarios.Add(newscenario);
                     continue;
                 }
@@ -44,7 +45,8 @@ namespace Squash
                 if (row.StartsWith("Scenario:"))
                 {
                     var newscenario = CreateScenario();
-                    Scenarios.Add(newscenario);
+					SquashLogger.Debug($"Feature {Name} has scenario {newscenario.Name}");
+					Scenarios.Add(newscenario);
                     continue;
                 }
 
@@ -52,7 +54,8 @@ namespace Squash
                 if (row.StartsWith("Scenario Outline:"))
                 {
                     var newscenario = CreateScenarioOutline();
-                    Scenarios.Add(newscenario);
+                    SquashLogger.Debug($"Feature {Name} has scenario outline {newscenario.Name} with scenarios {string.Join(",", newscenario.Scenarios.Select(s => s.Name))}");
+					Scenarios.Add(newscenario);
                     continue;
                 }
             }

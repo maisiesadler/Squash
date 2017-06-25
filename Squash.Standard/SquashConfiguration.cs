@@ -11,8 +11,32 @@ namespace Squash
 
         }
 
+        public static char Separator => _separator.Value;
+        private static char? _separator;
+        private char[] _validSeparators = new[] { '/', '\\' };
+
+        private void VerifySeparator(string filePath)
+        {
+            foreach(var separator in _validSeparators)
+            {
+                if (filePath.Contains(separator.ToString()))
+                {
+                    _separator = separator;
+                    return;
+				}
+                if (Directory.Exists(filePath + separator))
+				{
+					_separator = separator;
+					return;
+				}
+            }
+
+            SquashLogger.Error("Cannot find file path separator");
+        }
+
         public SquashConfiguration(string title, string inputDirectory, string outputDirectory)
         {
+            VerifySeparator(inputDirectory);
             Title = title;
             InputDirectory = NormalizeEnding(inputDirectory);
             OutputDirectory = NormalizeEnding(outputDirectory);
@@ -59,13 +83,19 @@ namespace Squash
 
         public bool Validate()
         {
-            if (!Directory.Exists(InputDirectory))
-            {
-                SquashLogger.Error("Input directory does not exist: \"" + InputDirectory + "\"");
-                return false;
-            }
+			if (_separator == null)
+			{
+				SquashLogger.Error("File path separator is not defined");
+				return false;
+			}
 
-            if (!Directory.Exists(OutputDirectory))
+			if (!Directory.Exists(InputDirectory))
+			{
+				SquashLogger.Error("Input directory does not exist: \"" + InputDirectory + "\"");
+				return false;
+			}
+
+			if (!Directory.Exists(OutputDirectory))
             {
                 SquashLogger.Error("Output directory does not exist: \"" + OutputDirectory + "\"");
                 return false;
@@ -87,10 +117,10 @@ namespace Squash
 
         private string NormalizeEnding(string filePath)
         {
-            if (filePath.EndsWith("\\"))
+            if (filePath.EndsWith(Separator.ToString(), StringComparison.CurrentCulture))
                 return filePath;
 
-            return filePath + "\\";
+            return filePath + Separator;
         }
 
         public string Title { get; set; }

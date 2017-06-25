@@ -23,6 +23,7 @@ namespace Squash
             template.Replace("templateScript", minifiedJs);
 
             _template = template;
+            SquashLogger.Info("Got page template");
         }
 
         public string GetPage(string content)
