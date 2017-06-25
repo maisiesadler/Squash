@@ -32,11 +32,16 @@ namespace Squash
         public static void Error(string message)
         {
             Logger?.Error(message);
-        }
+		}
 
-        public static void Info(string message)
-        {
-            Logger?.Info(message);
-        }
+		public static void Info(string message)
+		{
+			Logger?.Info(message);
+		}
+
+		public static void Debug(string message)
+		{
+            Logger?.Debug(message);
+		}
     }
 }

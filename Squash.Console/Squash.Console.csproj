@@ -9,4 +9,7 @@
     <ProjectReference Include="..\Squash.Standard\Squash.Standard.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="System.Console" Version="4.3.0" />
+  </ItemGroup>
 </Project>

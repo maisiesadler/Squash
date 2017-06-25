@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Squash.Console
+namespace Squash
 {
     class Program
     {
@@ -19,6 +19,24 @@ namespace Squash.Console
             {
                 squasher.Squash(squashConfiguration);
             }
+        }
+
+        public class Logger : ILogger
+		{
+			public void Debug(string message)
+			{
+				Console.WriteLine(message);
+			}
+
+            public void Info(string message)
+            {
+                Console.WriteLine(message);
+            }
+
+			public void Error(string message)
+			{
+				Console.WriteLine(message);
+			}
         }
     }
 }
